@@ -9,10 +9,17 @@ const app = Vue.createApp({
       playerHealth: 100,
       monsterHealth: 100,
       currentRound: 0,
+      winner: null,
+      playerCanAttack: true,
+      logMsg: [],
     };
   },
   computed: {
     monsterBarStyles() {
+      // if the monsterHealth < 0, set health bar width to 0%
+      if (this.monsterHealth < 0) {
+        return { width: '0%' };
+      }
       return {
         // Set the width of the health bar
         width: `${this.monsterHealth}%`,
@@ -21,6 +28,10 @@ const app = Vue.createApp({
       };
     },
     playerBarStyles() {
+      // If player health < 0, set health bar width to 0%
+      if (this.playerHealth < 0) {
+        return { width: '0%' };
+      }
       return {
         // Set the width of the health bar
         width: `${this.playerHealth}%`,
@@ -32,17 +43,54 @@ const app = Vue.createApp({
       return this.currentRound % 3 !== 0;
     },
   },
+  watch: {
+    // Keep track of player health and set winner
+    playerHealth(value) {
+      if (value <= 0 && this.monsterHealth <= 0) {
+        // It is draw
+        this.winner = 'draw';
+      } else if (value <= 0) {
+        // The monster won
+        this.winner = 'monster';
+      }
+    },
+    // Keep track of monster health
+    monsterHealth(value) {
+      if (value <= 0 && this.playerHealth <= 0) {
+        // It is a draw
+        this.winner = 'draw';
+      } else if (value <= 0) {
+        // player won
+        this.winner = 'player';
+      }
+    },
+  },
   methods: {
+    // Start a new game
+    startNewGame() {
+      this.currentRound = 0;
+      this.monsterHealth = 100;
+      this.playerHealth = 100;
+      this.playerCanAttack = true;
+      this.winner = null;
+      this.logMsg = [];
+    },
     // Player attack monster
     attackMonster() {
-      // Increase round count
-      this.currentRound++;
-      // get the damage value
-      const damage = getRandomValue(5, 12);
-      // "Hit" monster health by damage value
-      this.monsterHealth -= damage;
-      // The  monster's turn to attack
-      this.attackPlayer();
+      // Player can't attack before the monster have attacked
+      if (this.playerCanAttack) {
+        // Increase round count
+        this.currentRound++;
+        // get the damage value
+        const damage = getRandomValue(5, 12);
+        // "Hit" monster health by damage value
+        this.monsterHealth -= damage;
+        // Set the playerCanAttack to false
+        this.playerCanAttack = false;
+
+        // The  monster's turn to attack
+        this.attackPlayer();
+      }
     },
     // Monster attack player
     attackPlayer() {
@@ -66,28 +114,42 @@ const app = Vue.createApp({
         const damage = getRandomValue(8, 15);
         // "Hit" the player by damage value
         this.playerHealth -= damage;
+        // Let the player be  able to make his move
+        this.playerCanAttack = true;
       }, delay);
     },
     // use special attack
     specialAttackMonster() {
-      this.currentRound++;
-      const damage = getRandomValue(10, 25);
-      this.monsterHealth -= damage;
-      this.attackPlayer();
+      if (this.playerCanAttack) {
+        this.currentRound++;
+
+        const damage = getRandomValue(10, 25);
+        this.monsterHealth -= damage;
+        this.playerCanAttack = false;
+        this.attackPlayer();
+      }
     },
 
     // heal the player
     healPlayer() {
-      this.currentRound++;
-      const healValue = getRandomValue(5, 20);
+      if (this.playerCanAttack) {
+        this.currentRound++;
+        const healValue = getRandomValue(5, 20);
 
-      if (this.playerHealth + healValue > 100) {
-        this.playerHealth = 100;
-      } else {
-        this.playerHealth += healValue;
+        if (this.playerHealth + healValue > 100) {
+          this.playerHealth = 100;
+        } else {
+          this.playerHealth += healValue;
+        }
+        this.playerCanAttack = false;
+        this.attackPlayer();
       }
-      this.attackPlayer();
     },
+    playerSurrender() {
+      this.winner = 'monster';
+    },
+    // Add message to the battle log
+    addLogMessage(who, what, value) {},
   },
 });
 
