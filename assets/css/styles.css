@@ -3,6 +3,7 @@
   /* Colors */
   --dark-bg: #0c0904;
   --light-bg: #190c09;
+  --transparent: rgba(25, 12, 9, 0.781);
   --gray-border: #474747;
   --font: #c6c6c6;
   --link: #87847c;
@@ -56,6 +57,16 @@ svg {
 
 /* Base setup */
 
+html {
+  font-family: var(--base-font);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--heading-font);
+}
+
 /* Container used for large screens */
 .container {
   width: 100%;
@@ -89,7 +100,83 @@ a:active {
   color: var(--link-hover);
 }
 
-a .active {
+.active {
   text-decoration: underline;
   color: var(--link-hover);
+}
+
+/* Styles */
+
+/* Top bar only visible when integrated in michael-h.dk */
+
+.top-bar {
+  grid-area: top-bar;
+  width: 100%;
+  background: var(--dark-bg);
+  padding: 0.5rem;
+  display: none;
+}
+
+.top-bar .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  font-size: 1.2rem;
+}
+
+.top-bar .container nav {
+  display: flex;
+  flex-direction: column;
+  margin: 0.75rem 0;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 46.875rem) {
+  .top-bar .container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .top-bar .container nav {
+    flex-direction: row;
+    margin: 0;
+  }
+
+  .top-bar .container nav a {
+    margin: 0 1rem;
+  }
+}
+
+/* header */
+header {
+  grid-area: header;
+  background-image: url('../images/bg-header.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 25vh;
+}
+
+header .container {
+  background-color: var(--transparent);
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 5rem;
+}
+
+/* footer */
+footer {
+  grid-area: footer;
 }
