@@ -89,6 +89,7 @@ const app = Vue.createApp({
         this.playerCanAttack = false;
 
         // The  monster's turn to attack
+        this.addLogMessage('player', 'attack', damage);
         this.attackPlayer();
       }
     },
@@ -115,6 +116,8 @@ const app = Vue.createApp({
         // "Hit" the player by damage value
         this.playerHealth -= damage;
         // Let the player be  able to make his move
+        this.addLogMessage('monster', 'attack', damage);
+
         this.playerCanAttack = true;
       }, delay);
     },
@@ -126,6 +129,7 @@ const app = Vue.createApp({
         const damage = getRandomValue(10, 25);
         this.monsterHealth -= damage;
         this.playerCanAttack = false;
+        this.addLogMessage('player', 'attack', damage);
         this.attackPlayer();
       }
     },
@@ -142,6 +146,8 @@ const app = Vue.createApp({
           this.playerHealth += healValue;
         }
         this.playerCanAttack = false;
+        this.addLogMessage('player', 'heal', healValue);
+
         this.attackPlayer();
       }
     },
@@ -149,7 +155,16 @@ const app = Vue.createApp({
       this.winner = 'monster';
     },
     // Add message to the battle log
-    addLogMessage(who, what, value) {},
+    addLogMessage(actionBy, actionType, actionValue) {
+      // Use unshift to place msg to the top of the log
+      // It add the msg first in the array, where push adds to the end
+      this.logMsg.unshift({
+        actionBy,
+        actionType,
+        actionValue,
+      });
+      console.log(this.logMsg);
+    },
   },
 });
 
