@@ -4,12 +4,13 @@
   --dark-bg: #0c0904;
   --light-bg: #190c09;
   --transparent: rgba(25, 12, 9, 0.781);
-  --gray-border: #474747;
+  --gray-border: rgb(71, 71, 71);
   --font: #c6c6c6;
   --link: #87847c;
   --link-hover: #686868;
   --red: #d40404;
   --green: #2e9d5b;
+  --green-dark: #16753c;
 
   /* Fonts */
   --base-font: 'Poppins', sans-serif;
@@ -17,6 +18,9 @@
   --base-font-light: 200;
   --base-font-normal: 400;
   --base-font-bold: 900;
+
+  /* misc */
+  --shadow: 0 2px 8px rgba(71, 71, 71, 0.39);
 }
 
 /* Reset default browser styles*/
@@ -182,9 +186,146 @@ main {
   margin: 2rem auto;
   background-color: var(--dark-bg);
   border-radius: 0.625rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+}
+
+main .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main .container .game-box {
+  background-color: var(--light-bg);
+  width: 60%;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+  text-align: center;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+main h2 {
+  font-size: 2rem;
+}
+
+main .container .healthbar {
+  width: 100%;
+  height: 2.5rem;
+  border: 1px solid var(--gray-border);
+  margin: 1rem 0;
+  background-color: var(--dark-bg);
+}
+main .container .healthbar-value {
+  background-color: var(--green);
+  width: 100%;
+  height: 100%;
+}
+
+main .container .controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  font: inherit;
+  border: 1px solid var(--green);
+  background-color: var(--green);
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  margin: 1rem;
+  width: 12rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover,
+button:active {
+  border-color: var(--green-dark);
+  background-color: var(--green-dark);
+  box-shadow: 0 2px 12px rgba(71, 71, 71, 0.39);
+}
+
+button:disabled {
+  background-color: var(--gray-border);
+  border-color: var(--gray-border);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+main .container #log ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+main .container #log li {
+  margin: 0.5rem 0;
+}
+
+main .container .log--player {
+  color: #7700ff;
+}
+
+main .container .log--monster {
+  color: #da8d00;
+}
+
+main .container .log--heal {
+  color: var(--green);
+}
+
+main .container .log--damage {
+  color: var(--red);
 }
 
 /* footer */
 footer {
   grid-area: footer;
+  background-color: var(--light-bg);
+  padding: 0.75rem 0.5rem 1.5rem 0.5rem;
+}
+
+footer .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .container .copy {
+  text-align: center;
+}
+
+footer svg {
+  width: 2rem;
+  fill: var(--font);
+  margin: 0 0.5rem;
+}
+
+footer .container .social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 46.875rem) {
+  footer .container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer .container .copy {
+    text-align: left;
+  }
 }
