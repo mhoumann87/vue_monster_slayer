@@ -15,8 +15,6 @@
   /* Fonts */
   --base-font: 'Poppins', sans-serif;
   --heading-font: 'Yomogi', cursive;
-  --base-font-light: 200;
-  --base-font-normal: 400;
   --base-font-bold: 900;
 
   /* misc */
@@ -161,6 +159,7 @@ a:active {
 header {
   grid-area: header;
   background-image: url('../images/bg-header.jpg');
+  font-weight: var(--base-font-bold);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -225,6 +224,14 @@ main .container .healthbar-value {
   height: 100%;
 }
 
+main .container .healthbar-value .green {
+  background-color: var(--green);
+}
+
+main .container .healthbar-value .red {
+  background-color: var(--red);
+}
+
 main .container .controls {
   display: flex;
   flex-wrap: wrap;
@@ -234,12 +241,14 @@ main .container .controls {
 
 button {
   font: inherit;
+  text-transform: uppercase;
+  font-weight: var(--base-font-bold);
   border: 1px solid var(--green);
   background-color: var(--green);
   padding: 1rem 2rem;
   border-radius: 0.75rem;
   margin: 1rem;
-  width: 12rem;
+  width: 13rem;
   cursor: pointer;
   box-shadow: var(--shadow);
 }

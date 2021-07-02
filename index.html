@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;900&family=Yomogi&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&family=Yomogi&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./assets/css/styles.css" />
@@ -40,21 +40,27 @@
         <section id="monster" class="game-box">
           <h2>Monster Health</h2>
           <div class="healthbar">
-            <div class="healthbar-value"></div>
+            <!-- Use inline styles for the width of the health bar,
+            instead of making classes -->
+            <div class="healthbar-value" :style="monsterBarStyles"></div>
           </div>
         </section>
 
         <section id="player" class="game-box">
           <h2>You Health</h2>
           <div class="healthbar">
-            <div class="healthbar-value"></div>
+            <!-- Use inline styles for the width of the health bar,
+            instead of making classes -->
+            <div class="healthbar-value" :style="playerBarStyles"></div>
           </div>
         </section>
 
         <section id="controls">
-          <button>Attack</button>
-          <button>Special Attack</button>
-          <button>Heal</button>
+          <button @click="attackMonster">Attack</button>
+          <button :disabled="mayUseSpecialAttack" @click="specialAttackMonster">
+            Special Attack
+          </button>
+          <button @click="healPlayer">Heal</button>
           <button>Surrender</button>
         </section>
 
