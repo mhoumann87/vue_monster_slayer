@@ -1,0 +1,95 @@
+/* Setup Variables */
+:root {
+  /* Colors */
+  --dark-bg: #0c0904;
+  --light-bg: #190c09;
+  --gray-border: #474747;
+  --font: #c6c6c6;
+  --link: #87847c;
+  --link-hover: #686868;
+  --red: #d40404;
+  --green: #2e9d5b;
+
+  /* Fonts */
+  --base-font: 'Poppins', sans-serif;
+  --heading-font: 'Yomogi', cursive;
+  --base-font-light: 200;
+  --base-font-normal: 400;
+  --base-font-bold: 900;
+}
+
+/* Reset default browser styles*/
+* {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1.17rem;
+}
+h4 {
+  font-size: 1.12rem;
+}
+h5 {
+  font-size: 0.83rem;
+}
+h6 {
+  font-size: 0.75rem;
+}
+
+img,
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Base setup */
+
+/* Container used for large screens */
+.container {
+  width: 100%;
+  max-width: 112.5rem;
+}
+
+body {
+  background-image: url('../images/tactile_noise.png');
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas: 'top-bar' 'header' 'main' 'footer';
+  min-height: 100vh;
+  color: var(--font);
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+}
+
+a:hover,
+a:focus {
+  color: var(--link-hover);
+  font-size: 1.1rem;
+}
+
+a:active {
+  font-size: 0.9rem;
+  color: var(--link-hover);
+}
+
+a .active {
+  text-decoration: underline;
+  color: var(--link-hover);
+}
