@@ -176,6 +176,14 @@ header h1 {
   font-size: 5rem;
 }
 
+main {
+  grid-area: main;
+  width: 80%;
+  margin: 2rem auto;
+  background-color: var(--dark-bg);
+  border-radius: 0.625rem;
+}
+
 /* footer */
 footer {
   grid-area: footer;
