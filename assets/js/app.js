@@ -96,34 +96,35 @@ const app = Vue.createApp({
     // Monster attack player
     attackPlayer() {
       // check to see if monster is dead, then end game
-      if (monsterHealth <= 0) {
+      if (this.monsterHealth > 0) {
+        // Set the delay value based on health
+        let tiredness;
+        if (this.monsterHealth > 75) {
+          tiredness = 750;
+        } else if (this.monsterHealth > 50) {
+          tiredness = 1250;
+        } else if (this.monsterHealth > 25) {
+          tiredness = 2000;
+        } else {
+          tiredness = 2500;
+        }
+
+        // set random delay time up to 2 sec based on tiredness
+        const delay = Math.random() * tiredness;
+        // set random delay of monster attack
+        setTimeout(() => {
+          // Get the damage value (the monster hits a bit harder)
+          const damage = getRandomValue(8, 15);
+          // "Hit" the player by damage value
+          this.playerHealth -= damage;
+          // Let the player be  able to make his move
+          this.addLogMessage('monster', 'attack', damage);
+
+          this.playerCanAttack = true;
+        }, delay);
+      } else {
         return;
       }
-      // Set the delay value based on health
-      let tiredness;
-      if (this.monsterHealth > 75) {
-        tiredness = 750;
-      } else if (this.monsterHealth > 50) {
-        tiredness = 1250;
-      } else if (this.monsterHealth > 25) {
-        tiredness = 2000;
-      } else {
-        tiredness = 2500;
-      }
-
-      // set random delay time up to 2 sec based on tiredness
-      const delay = Math.random() * tiredness;
-      // set random delay of monster attack
-      setTimeout(() => {
-        // Get the damage value (the monster hits a bit harder)
-        const damage = getRandomValue(8, 15);
-        // "Hit" the player by damage value
-        this.playerHealth -= damage;
-        // Let the player be  able to make his move
-        this.addLogMessage('monster', 'attack', damage);
-
-        this.playerCanAttack = true;
-      }, delay);
     },
     // use special attack
     specialAttackMonster() {
