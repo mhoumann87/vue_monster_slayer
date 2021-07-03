@@ -95,6 +95,10 @@ const app = Vue.createApp({
     },
     // Monster attack player
     attackPlayer() {
+      // check to see if monster is dead, then end game
+      if (monsterHealth <= 0) {
+        return;
+      }
       // Set the delay value based on health
       let tiredness;
       if (this.monsterHealth > 75) {
